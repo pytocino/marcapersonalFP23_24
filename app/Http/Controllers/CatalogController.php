@@ -9,38 +9,35 @@ class CatalogController extends Controller
 {
     public function getIndex()
     {
-        return view('catalog.index')
-            ->with('arrayProyectos', Proyecto::all());
+        $proyecto = Proyecto::all();
+        return view('catalog.index', ['arrayProyectos' => $proyecto]);
     }
 
     public function getShow($id)
     {
-        $proyecto = Proyecto::findorfail($id);
-        //LA FORMA EN LA QUE SE ALMACENA LOS METADATOS(EL ARRAY LO SERIALIZA(CONVIERTE A TEXTO)) EN LA TABLA HAY QUE DESERIALIZARLA PARA PODER CONVERTIRLA DE NUEVO EN UN ARRAY.
+        $proyecto = Proyecto::FindOrFail($id);
         $proyecto->metadatos = unserialize($proyecto->metadatos);
-
         return view('catalog.show')
             ->with('proyecto', $proyecto)
-            ->with('id', $id);
+            ->with('id', $proyecto->id);
     }
 
     public function putEdit($id)
     {
-        $proyecto = Proyecto::findorfail($id);
+        $proyecto = Proyecto::FindOrFail($id);
         $proyecto->metadatos = unserialize($proyecto->metadatos);
-
         return view('catalog.edit')
-        ->with('proyecto', $proyecto)
-            ->with("id", $id);
+            ->with('proyecto', $proyecto)
+            ->with('id', $proyecto->id);
     }
 
     public function getEdit($id)
     {
-        $proyecto = Proyecto::findorfail($id);
+        $proyecto = Proyecto::FindOrFail($id);
         $proyecto->metadatos = unserialize($proyecto->metadatos);
         return view('catalog.edit')
-        ->with('proyecto', $proyecto)
-            ->with("id", $id);
+            ->with('proyecto', $proyecto)
+            ->with('id', $proyecto->id);
     }
 
     public function getCreate()
