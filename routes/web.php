@@ -38,11 +38,14 @@ Route::prefix('catalog')->group(function () {
 
     Route::get('/show/{id}', [CatalogController::class, 'getShow'])->where('id', '[0-9]+');
 
-    Route::get('/create', [CatalogController::class, 'getCreate']);
+    Route::get('/create', [CatalogController::class, 'getCreate'])
+        ->middleware('auth');;
 
-    Route::get('/edit/{id}', [CatalogController::class, 'getEdit'])->where('id', '[0-9]+');
+    Route::get('/edit/{id}', [CatalogController::class, 'getEdit'])->where('id', '[0-9]+')
+        ->middleware('auth');;
 
-    Route::put('/edit/{id}', [CatalogController::class, 'putEdit'])->where('id', '[0-9]+');
+    Route::put('/edit/{id}', [CatalogController::class, 'putEdit'])->where('id', '[0-9]+')
+        ->middleware('auth');;
 });
 
 Route::prefix('reconocimientos')->group(function () {
@@ -136,11 +139,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('perfil/{id?}', function ($id = null) {
-    if ($id == null) {
-        return "Visualizar el currículo propio";
-    } else {
-        return "Visualizar el currículo de " . $id;
-    }
+    $id == null ? "Visualizar el currículo propio" : "Visualizar el currículo de " . $id;
 })->where('id', '[0-9]+')->name('perfil');
 
 require __DIR__ . '/auth.php';

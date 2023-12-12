@@ -131,6 +131,12 @@ class DatabaseSeeder extends Seeder
             'email' => env('ADMIN_EMAIL', 'admin@email.com'),
             'password' => env('ADMIN_PASSWORD', 'password'),
         ]);
+
+        $this->call(ActividadesTableSeeder::class);
+        $this->call(CurriculosTableSeeder::class);
+        $this->call(DocentesTableSeeder::class);
+        $this->call(ReconocimientosTableSeeder::class);
+
         Model::reguard();
         Schema::enableForeignKeyConstraints();
 
