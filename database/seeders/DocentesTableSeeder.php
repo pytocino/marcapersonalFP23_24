@@ -16,6 +16,6 @@ class DocentesTableSeeder extends Seeder
     public function run(): void
     {
         Docente::truncate();
-        \App\Models\Docente::factory(10)->create();
+        Docente::factory(10)->create();
     }
 }
