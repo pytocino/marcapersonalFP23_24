@@ -3,30 +3,28 @@
 @section('content')
     <div class="row">
 
-<div class="row">
+        @for ($i = 0; $i < count($arrayProyectos); $i++)
+            <div class="col-4 col-6-medium col-12-small">
+                <section class="box">
+                    <a href="#" class="image featured"><img src="{{ asset('/images/mp-logo.png') }}" alt="" /></a>
+                    <header>
+                        <h3>{{ $arrayProyectos[$i]['nombre'] }}</h3>
+                    </header>
+                    <p>
+                        <a href="http://github.com/2DAW-CarlosIII/{{ $arrayProyectos[$i]['dominio'] }}">
+                            http://github.com/2DAW-CarlosIII/{{ $arrayProyectos[$i]['dominio'] }}
+                        </a>
+                    </p>
+                    <footer>
+                        <ul class="actions">
+                            //TODO enlazar el show de catalogController
+                            <li><a href="{{ action([App\Http\Controllers\CatalogController::class, 'getShow'], ['id' => $arrayProyectos[$i]['id']]) }}"
+                                    class="button alt">Más info</a></li>
+                        </ul>
+                    </footer>
+                </section>
+            </div>
+        @endfor
 
-    @foreach ($arrayProyectos as $proyecto)
-
-    <div class="col-4 col-6-medium col-12-small">
-        <section class="box">
-            <a href="#" class="image featured"><img src="{{ asset('/images/mp-logo.png') }}" alt="" /></a>
-            <header>
-                <h3>{{ $proyecto->nombre }}</h3>
-            </header>
-            <p>
-                <a href="http://github.com/2DAW-CarlosIII/{{ $proyecto->dominio }}">
-                    http://github.com/2DAW-CarlosIII/{{ $proyecto->dominio }}
-                </a>
-            </p>
-            <footer>
-                <ul class="actions">
-                    <li><a href="{{ action([App\Http\Controllers\CatalogController::class, 'getShow'], ['id' => $arrayProyectos[$i]['id']] ) }}" class="button alt">Más info</a></li>
-                </ul>
-            </footer>
-        </section>
     </div>
-
-    @endforeach
-
-</div>
 @endsection
