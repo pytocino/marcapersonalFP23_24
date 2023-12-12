@@ -12,7 +12,47 @@ use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        Model::unguard();
+        Schema::disableForeignKeyConstraints();
 
+        // \App\Models\User::factory(10)->create();
+
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => env('ADMIN_EMAIL', 'admin@email.com'),
+            'password' => env('ADMIN_PASSWORD', 'password'),
+        ]);
+
+        $this->call(EstudiantesTableSeeder::class);
+        $this->call(ReconocimientosTableSeeder::class);
+        $this->call(DocentesTableSeeder::class);
+        $this->call(CurriculosTableSeeder::class);
+        $this->call(ActividadesTableSeeder::class);
+
+        self::seedProyectos();
+        $this->command->info('Tablas inicializadas con datos!');
+
+        Model::reguard();
+        Schema::enableForeignKeyConstraints();
+    }
+
+    private static function seedProyectos(): void
+    {
+        Proyecto::truncate();
+        foreach( self::$arrayProyectos as $proyecto ) {
+            $p = new Proyecto;
+            $p->docente_id = $proyecto['docente_id'];
+            $p->nombre = $proyecto['nombre'];
+            $p->dominio = $proyecto['dominio'];
+            $p->metadatos = serialize($proyecto['metadatos']);
+            $p->save();
+        }
+    }
     private static $arrayProyectos = [
         [
             'docente_id' => 1,
@@ -115,6 +155,7 @@ class DatabaseSeeder extends Seeder
             ]
         ],
     ];
+<<<<<<< HEAD
     /**
      * Seed the application's database.
      */
@@ -141,4 +182,6 @@ class DatabaseSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
     }
+=======
+>>>>>>> 6871f6a9129cfc32bbfdcd3b1a709f85a8b729bb
 }
