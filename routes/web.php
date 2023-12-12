@@ -9,7 +9,6 @@ use App\Http\Controllers\ReconocimientoController;
 use App\Http\Controllers\CurriculoController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\DocenteController;
-use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,9 +134,6 @@ Route::get('perfil/{id?}', function ($id = null) {
     $id == null ? "Visualizar el currículo propio" : "Visualizar el currículo de " . $id;
 })->where('id', '[0-9]+')->name('perfil');
 
-<<<<<<< HEAD
-require __DIR__ . '/auth.php';
-=======
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -149,4 +145,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
->>>>>>> 6871f6a9129cfc32bbfdcd3b1a709f85a8b729bb

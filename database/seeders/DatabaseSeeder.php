@@ -155,33 +155,4 @@ class DatabaseSeeder extends Seeder
             ]
         ],
     ];
-<<<<<<< HEAD
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
-        Model::unguard();
-        Schema::disableForeignKeyConstraints();
-
-        $this->call(EstudiantesTableSeeder::class);
-        // \App\Models\User::factory(10)->create();
-
-        \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'email' => env('ADMIN_EMAIL', 'admin@email.com'),
-            'password' => env('ADMIN_PASSWORD', 'password'),
-        ]);
-
-        $this->call(ActividadesTableSeeder::class);
-        $this->call(CurriculosTableSeeder::class);
-        $this->call(DocentesTableSeeder::class);
-        $this->call(ReconocimientosTableSeeder::class);
-
-        Model::reguard();
-        Schema::enableForeignKeyConstraints();
-
-    }
-=======
->>>>>>> 6871f6a9129cfc32bbfdcd3b1a709f85a8b729bb
 }
