@@ -17,7 +17,7 @@ class UserController extends Controller
      * Create the controller instance.
      *
      * @return void
-    */
+     */
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except(['index', 'show', 'store']);
@@ -59,7 +59,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $userData = json_decode($request->getContent(), true);
+        $userData = $request->all();
+        if ($userAvatar = $request->file('avatar')) {
+            $path = $userAvatar->store('avatars', ['disk' => 'public']);
+            $userData['avatar'] = $path;
+        }
         $user->update($userData);
         return new UserResource($user);
     }
